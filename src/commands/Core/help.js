@@ -74,8 +74,8 @@ export async function createInitialHelpMenu(client) {
 
     const botName = client?.user?.username || "Bot";
     const embed = createEmbed({ 
-        title: `🤖 ${botName} Help Center`,
-        description: "Your all-in-one Discord companion for moderation, economy, fun, and server management.",
+        title: `:Wcan: ${botName} Help Center`,
+        description: "The most efficient watering can, offering all kinds of water: from sweet lake water to salty sea water, from clear ice water to dirty sand-rain water.",
         color: 'primary'
     });
 
@@ -162,25 +162,15 @@ export async function createInitialHelpMenu(client) {
     });
     embed.setTimestamp();
 
-    const bugReportButton = new ButtonBuilder()
-        .setCustomId(BUG_REPORT_BUTTON_ID)
-        .setLabel("Report Bug")
-        .setStyle(ButtonStyle.Danger);
-
-
     const selectRow = createSelectMenu(
         CATEGORY_SELECT_ID,
         "Select to view the commands",
         options,
     );
 
-    const buttonRow = new ActionRowBuilder().addComponents([
-        bugReportButton,
-    ]);
-
     return {
         embeds: [embed],
-        components: [buttonRow, selectRow],
+        components: [selectRow],
     };
 }
 
@@ -200,23 +190,6 @@ export default {
             embeds,
             components,
         });
-
-        setTimeout(async () => {
-            try {
-                const closedEmbed = createEmbed({
-                    title: "Help menu closed",
-                    description: "Help menu has been closed, use /help again.",
-                    color: "secondary",
-                });
-
-                await InteractionHelper.safeEditReply(interaction, {
-                    embeds: [closedEmbed],
-                    components: [],
-                });
-            } catch (error) {
-                
-            }
-        }, HELP_MENU_TIMEOUT_MS);
     },
 };
 
