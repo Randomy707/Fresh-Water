@@ -43,9 +43,9 @@ export function validateBirthday(day, month, year) {
 
   
   const currentYear = new Date().getFullYear();
-  const date = new Date(currentYear, month - 1, day);
+  const date = new Date(currentYear, day, month - 1, year);
   
-  if (isNaN(date.getTime()) || date.getMonth() !== day || date.getDate() !== month - 1) {
+  if (isNaN(date.getTime()) || date.getDate() !== day || date.getMonth() !== month - 1 || date.getYear() !== year) {
     return {
       isValid: false,
       error: 'Invalid date. Please check the month and day combination (e.g., February 29th only exists in leap years)'
