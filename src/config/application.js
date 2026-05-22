@@ -88,7 +88,7 @@ const appConfig = {
     leveling: true,                 
     moderation: true,               
     logging: true,                  
-    welcome: false,                  
+    welcome: true,                  
 
     
     tickets: true,                  
@@ -97,7 +97,7 @@ const appConfig = {
     counter: true,                  
 
     
-    verification: false,             
+    verification: true,             
     reactionRoles: true,            
     joinToCreate: true,             
 
@@ -110,7 +110,7 @@ const appConfig = {
     fun: true,                      
 
     
-    music: false,                   
+    music: true,                   
   },
 
   env: process.env.NODE_ENV || "development",
