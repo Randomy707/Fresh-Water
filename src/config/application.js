@@ -88,7 +88,7 @@ const appConfig = {
     leveling: true,                 
     moderation: true,               
     logging: true,                  
-    welcome: true,                  
+    welcome: false,                  
 
     
     tickets: true,                  
@@ -97,7 +97,7 @@ const appConfig = {
     counter: true,                  
 
     
-    verification: true,             
+    verification: false,             
     reactionRoles: true,            
     joinToCreate: true,             
 
