@@ -74,7 +74,7 @@ export async function createInitialHelpMenu(client) {
 
     const botName = client?.user?.username || "Bot";
     const embed = createEmbed({ 
-        title: `:Wcan: ${botName} Help Center`,
+        title: `<:Wcan:1507365574999801977> ${botName} Help Center`,
         description: "The most efficient watering can, offering all kinds of water: from sweet lake water to salty sea water, from clear ice water to dirty sand-rain water.",
         color: 'primary'
     });
