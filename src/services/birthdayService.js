@@ -9,12 +9,19 @@ import { TitanBotError, ErrorTypes } from '../utils/errorHandler.js';
 
 
 
-export function validateBirthday(month, day) {
+export function validateBirthday(day, month, year) {
   
-  if (typeof month !== 'number' || typeof day !== 'number') {
+  if (typeof day !== 'number' || typeof month !== 'number' || typeof year !== 'number') {
     return {
       isValid: false,
-      error: 'Month and day must be numbers'
+      error: 'Day, month and year must be numbers'
+    };
+  }
+
+  if (day < 1 || day > 31) {
+    return {
+      isValid: false,
+      error: 'Day must be between 1 and 31'
     };
   }
 
@@ -27,10 +34,10 @@ export function validateBirthday(month, day) {
   }
 
   
-  if (day < 1 || day > 31) {
+  if (year < 1909 || day > 2013) {
     return {
       isValid: false,
-      error: 'Day must be between 1 and 31'
+      error: 'Year must be between 1909 and 2013'
     };
   }
 
@@ -38,7 +45,7 @@ export function validateBirthday(month, day) {
   const currentYear = new Date().getFullYear();
   const date = new Date(currentYear, month - 1, day);
   
-  if (isNaN(date.getTime()) || date.getMonth() !== month - 1 || date.getDate() !== day) {
+  if (isNaN(date.getTime()) || date.getMonth() !== day || date.getDate() !== month - 1) {
     return {
       isValid: false,
       error: 'Invalid date. Please check the month and day combination (e.g., February 29th only exists in leap years)'
@@ -57,16 +64,17 @@ export function validateBirthday(month, day) {
 
 
 
-export async function setBirthday(client, guildId, userId, month, day) {
+export async function setBirthday(client, guildId, userId, day, month, year) {
   try {
     
-    const validation = validateBirthday(month, day);
+    const validation = validateBirthday(day, month, year);
     if (!validation.isValid) {
       logger.warn('Birthday validation failed', {
         userId,
         guildId,
-        month,
         day,
+        month,
+        year,
         error: validation.error
       });
       
@@ -74,35 +82,37 @@ export async function setBirthday(client, guildId, userId, month, day) {
         validation.error,
         ErrorTypes.VALIDATION,
         validation.error,
-        { month, day, userId, guildId }
+        { day, month, year, userId, guildId }
       );
     }
 
     // Set birthday in database
-    const success = await dbSetBirthday(client, guildId, userId, month, day);
+    const success = await dbSetBirthday(client, guildId, userId, day, month, year);
     
     if (!success) {
       throw new TitanBotError(
         'Failed to save birthday to database',
         ErrorTypes.DATABASE,
         'Failed to set your birthday. Please try again later.',
-        { userId, guildId, month, day }
+        { userId, guildId, day, month, year }
       );
     }
 
     logger.info('Birthday set successfully', {
       userId,
       guildId,
-      month,
       day,
+      month,
+      year,
       monthName: getMonthName(month)
     });
 
     return {
       success: true,
       data: {
-        month,
         day,
+        month,
+        year,
         monthName: getMonthName(month)
       }
     };
@@ -112,8 +122,9 @@ export async function setBirthday(client, guildId, userId, month, day) {
       stack: error.stack,
       userId,
       guildId,
+      day,
       month,
-      day
+      year
     });
     
     throw error;
@@ -137,8 +148,9 @@ export async function getUserBirthday(client, guildId, userId) {
     }
 
     return {
-      month: birthdayData.month,
       day: birthdayData.day,
+      month: birthdayData.month,
+      year: birthdayData.year
       monthName: getMonthName(birthdayData.month)
     };
   } catch (error) {
@@ -169,8 +181,9 @@ export async function getAllBirthdays(client, guildId) {
     const sortedBirthdays = Object.entries(birthdays)
       .map(([userId, data]) => ({
         userId,
-        month: data.month,
         day: data.day,
+        month: data.month,
+        year: data.year,
         monthName: getMonthName(data.month)
       }))
       .sort((a, b) => {
