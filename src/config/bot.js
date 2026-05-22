@@ -145,7 +145,7 @@ export const botConfig = {
     author: {
       // Optional default embed author block.
       name: "The Garden 🦋",
-      icon: https://cdn.discordapp.com/attachments/1378155559512969332/1507356233701658624/thegarden_pfp.jpg?ex=6a119a63&is=6a1048e3&hm=698a4f3ad908f9a67c25ce63c7005147b73455a8bc059aa6b0f74633c33d6555&,
+      icon: "https://cdn.discordapp.com/attachments/1378155559512969332/1507356233701658624/thegarden_pfp.jpg?ex=6a119a63&is=6a1048e3&hm=698a4f3ad908f9a67c25ce63c7005147b73455a8bc059aa6b0f74633c33d6555&",
       url: null,
     },
   },
