@@ -150,7 +150,7 @@ export async function getUserBirthday(client, guildId, userId) {
     return {
       day: birthdayData.day,
       month: birthdayData.month,
-      year: birthdayData.year
+      year: birthdayData.year,
       monthName: getMonthName(birthdayData.month)
     };
   } catch (error) {
