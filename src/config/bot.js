@@ -88,8 +88,8 @@ export const botConfig = {
   embeds: {
     colors: {
       // Main brand colors.
-      primary: "#E56B00", 
-      secondary: "#EACCFF", 
+      primary: "#1CA3EC", 
+      secondary: "#1588FF", 
 
       // Standard status colors for success/error/warning/info messages.
       success: "#57F287", 
@@ -300,14 +300,14 @@ export const botConfig = {
       // - "none"        = everyone is auto-verified immediately
       // - "account_age" = account must be older than set days
       // - "server_size" = auto-verify everyone only in smaller servers
-      defaultCriteria: "none",
+      defaultCriteria: "server_size",
 
       // Days used when `defaultCriteria` is `account_age`.
       defaultAccountAgeDays: 7,
 
       // Member count threshold used when `defaultCriteria` is `server_size`.
       // Example: 1000 means auto-verify if server has fewer than 1000 members.
-      serverSizeThreshold: 1000,
+      serverSizeThreshold: 2,
 
       // Allowed safety limits for account-age requirements.
       // 1 = minimum day, 365 = maximum days.
@@ -320,7 +320,7 @@ export const botConfig = {
       // Human-readable descriptions for each criteria mode.
       criteria: {
         account_age: "Account must be older than specified days",
-        server_size: "All users if server has less than 1000 members",
+        server_size: "All users must verify",
         none: "All users immediately"
       }
     },
@@ -440,7 +440,7 @@ export const botConfig = {
     leveling: true,
     moderation: true,
     logging: true,
-    welcome: true,
+    welcome: false,
 
     // Community engagement systems.
     tickets: true,
@@ -449,7 +449,7 @@ export const botConfig = {
     counter: true,
 
     // Security and self-service systems.
-    verification: true,
+    verification: false,
     reactionRoles: true,
     joinToCreate: true,
 
