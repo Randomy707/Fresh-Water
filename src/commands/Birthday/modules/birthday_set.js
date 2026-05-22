@@ -10,17 +10,18 @@ export default {
         try {
             await InteractionHelper.safeDefer(interaction);
 
+            const year = interaction.options.getInteger("year");
             const month = interaction.options.getInteger("month");
             const day = interaction.options.getInteger("day");
             const userId = interaction.user.id;
             const guildId = interaction.guildId;
 
             
-            const result = await setBirthday(client, guildId, userId, month, day);
+            const result = await setBirthday(client, guildId, userId, day, month, year);
             
             await InteractionHelper.safeEditReply(interaction, {
                 embeds: [successEmbed(
-                    `Your birthday has been set to **${result.data.monthName} ${result.data.day}**!`,
+                    `Your birthday has been set to **${result.data.day} ${result.data.monthName} ${result.data.year}**!`,
                     "Birthday Set! 🎂"
                 )]
             });
