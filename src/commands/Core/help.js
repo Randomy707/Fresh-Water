@@ -35,7 +35,6 @@ const CATEGORY_ICONS = {
     Tools: "🛠️",
     Search: "🔍",
     Reaction_Roles: "🎭",
-    Community: "👥",
     Birthday: "🎂",
     Config: "⚙️",
 };
@@ -118,11 +117,6 @@ export async function createInitialHelpMenu(client) {
         {
             name: "🎂 **Birthdays**",
             value: "Birthday tracking and celebration features",
-            inline: true
-        },
-        {
-            name: "👥 **Community**",
-            value: "Community tools, applications, and member engagement",
             inline: true
         },
         {
